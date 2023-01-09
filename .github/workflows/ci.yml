@@ -14,7 +14,7 @@ jobs:
   build:
     strategy:
       matrix:
-        toolchain: [nightly]
+        toolchain: [stable, beta, nightly]
         os: [windows-latest, macos-latest, ubuntu-latest]
       fail-fast: false
     runs-on: ${{ matrix.os }}
