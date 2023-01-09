@@ -2,3 +2,4 @@ version = 1
 
 [merge]
 priority_merge_label = "priority"
+delete_branch_on_merge = true
