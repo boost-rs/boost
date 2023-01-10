@@ -22,11 +22,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
-      - name: Set Swap Space
-        uses: pierotofy/set-swap-space@master
-        with:
-          swap-size-gb: 10
-        if: ${{ startsWith(matrix.os, 'ubuntu') }}
       # - name: Install dependencies
       #   id: install-depencies
       #   uses: ./.github/library/dependency
@@ -38,13 +33,11 @@ jobs:
         with:
           path: |
             target
-            apollo-libretro-cores/**/build/
           key: cache-${{ hashFiles('Cargo.lock') }}
           restore-keys: |
             cache-${{ hashFiles('Cargo.lock') }}
             cache-
       - run: rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
-      - run: rustup target add wasm32-unknown-unknown
       - name: Build
         run: cargo build --verbose
       - name: Run tests
@@ -67,10 +60,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
-      - name: Set Swap Space
-        uses: pierotofy/set-swap-space@master
-        with:
-          swap-size-gb: 10
       # - name: Install dependencies
       #   id: install-depencies
       #   uses: ./.github/library/dependency
