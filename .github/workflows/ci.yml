@@ -11,7 +11,7 @@ env:
   RUSTFLAGS: -D warnings -A unused-imports
 
 jobs:
-  build:
+  test:
     strategy:
       matrix:
         toolchain: [stable, beta, nightly]
@@ -33,9 +33,11 @@ jobs:
         with:
           path: |
             target
-          key: cache-${{ hashFiles('Cargo.lock') }}
+          key: cache-${{ hashFiles('Cargo.lock') }}-${{ matrix.os }}-${{ matrix.toolchain }}
           restore-keys: |
-            cache-${{ hashFiles('Cargo.lock') }}
+            cache-${{ hashFiles('Cargo.lock') }}-${{ matrix.os }}-${{ matrix.toolchain }}
+            cache-${{ hashFiles('Cargo.lock') }}-${{ matrix.os }}-
+            cache-${{ hashFiles('Cargo.lock') }}-
             cache-
       - run: rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
       - name: Install nextest
