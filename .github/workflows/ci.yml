@@ -43,9 +43,9 @@ jobs:
       - name: Install nextest
         uses: taiki-e/install-action@nextest
       - run: cargo nextest run --retries 3
-  build-status:
+  test-status:
     runs-on: ubuntu-20.04
-    needs: [build]
+    needs: [test]
     if: always()
     steps:
       - name: Successful deploy
